@@ -1,9 +1,11 @@
 # Chainlink Historical Price Data External Adapter
-Chainlink external adapter for obtaining verifiable historical price data. 
+
+Chainlink external adapter for obtaining verifiable historical price data.
 
 ## Installation
 
 ### Setting Environment Variables
+
 Set your `RPC_URL` [environment variable.](https://www.twilio.com/blog/2017/01/how-to-set-environment-variables.html). You can get one for free at [Infura's site.](https://infura.io/). This can be set to a Kovan or Ethereum mainnet RPC endpoint
 
 ![WARNING](https://via.placeholder.com/15/f03c15/000000?text=+) **WARNING** ![WARNING](https://via.placeholder.com/15/f03c15/000000?text=+)
@@ -15,21 +17,19 @@ git clone https://github.com/pappas999/historical-price-feed-data
 cd historical-price-feed-data/src/historical-price-ea
 ```
 
-
-
 See [Install Locally](#install-locally) for a quickstart
 
 ## Input Params
-| Parameter  | Description                                             | Default Value |
-| ---------- | :------------------------------------------------------ | :------------ |
-| proxyAddress      | [Proxy address](https://docs.chain.link/docs/ethereum-addresses/) of price feed                            |  |
-| unixDateTime  | [unix timestamp](https://www.epochconverter.com/) that you wish to know the price data for |               |
+
+| Parameter    | Description                                                                                | Default Value |
+| ------------ | :----------------------------------------------------------------------------------------- | :------------ |
+| proxyAddress | [Proxy address](https://docs.chain.link/docs/ethereum-addresses/) of price feed            |               |
+| unixDateTime | [unix timestamp](https://www.epochconverter.com/) that you wish to know the price data for |               |
 
 ## Output
 
 The output is a JSON object containing the aggregator Phase ID, then answerRound, the previous round before the answer round, and the round after the answer round.
 All rounds are aggregator rounds, not proxy rounds
-
 
 ```json
 {
@@ -62,7 +62,8 @@ curl -X POST -H "content-type:application/json" "http://localhost:8080/" --data 
 ```
 
 ## Example JSON Jobspec for Chainlink node
-Here is an example Job spec for using the external adapter. 
+
+Here is an example Job spec for using the external adapter.
 
 ```
 {
@@ -96,12 +97,12 @@ Here is an example Job spec for using the external adapter.
 ```
 
 ## Increasing the Chainlink Node API Call Timeout Parameter
+
 Due to the heavy computation of finding the right aggregator, and doing a binary search over thousands of rounds, sometimes the external adapter can take 15-20 seconds to complete. This can cause the call to the adapter to timeout due to the standard 15 second DEFAULT_HTTP_TIMEOUT parameter. If you find it's timing out, set the DEFAULT_HTTP_TIMEOUT value to a higher number in your node's .env file
 
 ```
 DEFAULT_HTTP_TIMEOUT=60
 ```
-
 
 ## Docker
 
@@ -138,8 +139,8 @@ zip -r external-adapter.zip .
 - Under Function code, select "Upload a .zip file" from the Code entry type drop-down
 - Click Upload and select the `external-adapter.zip` file
 - Handler:
-    - index.handler for REST API Gateways
-    - index.handlerv2 for HTTP API Gateways
+  - index.handler for REST API Gateways
+  - index.handlerv2 for HTTP API Gateways
 - Add the environment variable (repeat for all environment variables):
   - Key: API_KEY
   - Value: Your_API_key
